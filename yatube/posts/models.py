@@ -10,10 +10,13 @@ class Group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return (self.title)
+        return self.title
 
 
 class Post(models.Model):
+    class Meta:
+        ordering = ['-pub_date']
+
     text = models.TextField()
     pub_date = models.DateTimeField("date publihed", auto_now_add=True)
     author = models.ForeignKey(
@@ -25,6 +28,8 @@ class Post(models.Model):
         Group,
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='group'
     )
+    def __str__(self) -> str:
+        return self.text[:20]

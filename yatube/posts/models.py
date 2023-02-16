@@ -32,5 +32,6 @@ class Post(models.Model):
         related_name='group'
     )
     
+    
     def __str__(self) -> str:
         return self.text[:20]
